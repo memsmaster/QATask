@@ -7,9 +7,9 @@ from pages.CartPage import CartPage
 class ProductsPage(BasePage):
     # Locators
     first_product = (By.XPATH, "(//a[@class='btn btn-default add-to-cart'])[1]")
-    first_product_price = (By.XPATH, "(//div[@class='productinfo text-center']//h2)[1]")
+    first_product_price = (By.XPATH, "(//div[@class='product-overlay']//h2)[1]")
     second_product = (By.XPATH, "(//a[@class='btn btn-default add-to-cart'])[3]")
-    second_product_price = (By.XPATH, "(//div[@class='productinfo text-center']//h2)[2]")
+    second_product_price = (By.XPATH, "(//div[@class='product-overlay']//h2)[2]")
     first_product_add_cart_button = (By.XPATH, "(//*[text()='Add to cart'])[1]")
     second_product_add_cart_button = (By.XPATH, "(//*[text()='Add to cart'])[3]")
     continue_shopping_button = (By.XPATH, "//*[text()='Continue Shopping']")
@@ -50,10 +50,16 @@ class ProductsPage(BasePage):
         return CartPage(self._driver)
 
     def get_first_product_price(self):
-
-        first_product_price = self.wait_until_element_is_visible(self.first_product_price).text
-        return first_product_price
+        first_product_price_text = self.wait_until_element_is_visible(self.first_product_price).text
+        digits = ''.join(filter(str.isdigit, first_product_price_text))
+        if not digits:
+            raise ValueError(f"Unable to extract numeric value from price text: {first_product_price_text}")
+        return int(digits)
 
     def get_second_product_price(self):
-        second_product_price = self.wait_until_element_is_visible(self.second_product_price).text
-        return second_product_price
+        second_product_price_text = self.wait_until_element_is_visible(self.first_product_price).text
+        digits = ''.join(filter(str.isdigit, second_product_price_text))
+        if not digits:
+            raise ValueError(f"Unable to extract numeric value from price text: {second_product_price_text}")
+        return int(digits)
+
