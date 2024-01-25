@@ -15,6 +15,8 @@ class TestAddProductsToCart(unittest.TestCase):
         self.driver.quit()
 
     def test_add_products_to_cart(self):
+        self.home_page.close_google_vignette()
+
         # Create instances of page objects
         products_page = self.home_page.click_products_tab()
 
