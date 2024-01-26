@@ -1,4 +1,3 @@
-from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
 from pages.ProductsPage import ProductsPage

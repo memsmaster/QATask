@@ -17,10 +17,9 @@ class BasePage(object):
     def click(self, locator: tuple):
         self.wait_until_element_is_visible(locator).click()
 
-
     def is_element_present(self, locator: tuple, timeout=30):
         try:
-         WebDriverWait(self._driver, timeout).until(EC.presence_of_element_located(locator))
-         return True
+            WebDriverWait(self._driver, timeout).until(EC.presence_of_element_located(locator))
+            return True
         except TimeoutException:
-         return False
+            return False
